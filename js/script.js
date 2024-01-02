@@ -80,7 +80,7 @@ function AddSignupData(){
         Swal.fire({
             position: "center",
             icon: "warning",
-            title: "Invalid Email or password",           
+            title: "Please enter correct and valid email and correct password",           
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Ok"
