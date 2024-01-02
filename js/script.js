@@ -63,12 +63,8 @@ function AddSignupData(){
             GettingUserData.push(user);
                 localStorage.setItem('users', JSON.stringify(GettingUserData));
                 resetForm();            
-                const redirectPage="home.html";
-                if (window.location.origin== localBaseUrl) {
-                    window.location.href = localBaseUrl+`${redirectPage}`;                                    
-                }else{
-                    window.location.href = gitBaseUrl+`${redirectPage}`;                                    
-                }
+                const homePage="home.html";
+                redirectPageUrl(homePage);
                 // sweet alert of success signup 
                 Swal.fire({
                     position: "top-end",
