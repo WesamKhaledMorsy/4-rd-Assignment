@@ -3,8 +3,8 @@ const email= document.getElementById('Email');
 const password = document.getElementById('Password');
 const gender = document.getElementsByName('Gender');
 
-
-
+const gitBaseUrl ="https://wesamkhaledmorsy.github.io/Smart-login-System/"
+const localBaseUrl = "http://127.0.0.1:5501/"
 let isuser= false;
 let loginedUser = "";
 const usersData = [];
@@ -12,6 +12,13 @@ if(JSON.parse(localStorage.getItem('users')) != null){
 
 }
 
+function redirectPageUrl(pageName){
+    if (window.location.origin+'/'== localBaseUrl) {
+        window.location.href = localBaseUrl+`${pageName}`;                                    
+    }else{
+        window.location.href = gitBaseUrl+`${pageName}`;                                    
+    }   
+}
 
 let GettingUserData = JSON.parse(localStorage.getItem('users'));
 function AddSignupData(){
@@ -48,15 +55,20 @@ function AddSignupData(){
                     timer: 1500
                 });
                 // redirect to login page
-                window.location.pathname = "index.html";                
-                
+                const redirectPage="index.html";
+                redirectPageUrl(redirectPage);
             }
         } else if(GettingUserData == null){
             GettingUserData = [];
             GettingUserData.push(user);
                 localStorage.setItem('users', JSON.stringify(GettingUserData));
-                resetForm();
-                window.location.pathname = "home.html";
+                resetForm();            
+                const redirectPage="home.html";
+                if (window.location.origin== localBaseUrl) {
+                    window.location.href = localBaseUrl+`${redirectPage}`;                                    
+                }else{
+                    window.location.href = gitBaseUrl+`${redirectPage}`;                                    
+                }
                 // sweet alert of success signup 
                 Swal.fire({
                     position: "top-end",
@@ -64,9 +76,8 @@ function AddSignupData(){
                     title: "You are Signed up Successfully",
                     showConfirmButton: false,
                     timer: 1500
-                });
-                // window.location.href = "http://127.0.0.1:5501/home.html/?username=" + user.name;
-                window.location.pathname = "index.html";                            
+                });                               
+                redirectPageUrl(redirectPage);
         }              
         
     }else{
@@ -90,9 +101,10 @@ function SignIN(){
         if(GettingUserData != null){
             if(CheckUserCorrectAccount())
             {
-                   // redirect to home page
-                   window.location.pathname = "home.html" ; 
-                   resetForm();
+                   // redirect to home page                  
+                    const redirectPage="home.html";
+                    redirectPageUrl(redirectPage);
+                    resetForm();
             }
             else{
                 Swal.fire({
@@ -117,6 +129,8 @@ function SignIN(){
         });
     }
 }
+console.log(window.location)
+
 // check if the user exicte or not
     function IsUser(){
         for (let i = 0; i < GettingUserData.length; i++) {
@@ -158,8 +172,9 @@ function getUserDataByEmail(){
 getUserDataByEmail();
 
 function logOut(){
-    localStorage.removeItem('currentUser');   
-    window.location.pathname = "index.html" ; 
+    localStorage.removeItem('currentUser');      
+    const redirectPage="index.html";
+    redirectPageUrl(redirectPage);
 }
 
 function resetForm(){
